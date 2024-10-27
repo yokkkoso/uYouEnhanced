@@ -588,8 +588,8 @@ static NSMutableArray <YTIItemSectionRenderer *> *filteredArray(NSArray <YTIItem
 %hook YTHeaderLogoController
 - (void)setTopbarLogoRenderer:(YTITopbarLogoRenderer *)renderer {
     // Modify the type of the icon before setting the renderer
-    YTIIcon *iconImage = renderer.iconImage;
-    iconImage.iconType = 537; // magic number for Premium icon, hopefully it doesnt change. 158 is default logo.
+    YTIIcon *icon = [%c(YTIIcon) new];
+    icon.iconType = YT_PREMIUM_LOGO; // magic number (537) for Premium icon, hopefully it doesnt change. 158 (YT_DEFAULT_LOGO) is default logo.
     // Use this modified renderer
     %orig;
 }
@@ -637,7 +637,7 @@ static NSMutableArray <YTIItemSectionRenderer *> *filteredArray(NSArray <YTIItem
                     // Check if the icon is for the premium advertisement - 117 is magic number for the icon
                     if ([icon hasIconType] && icon.iconType == 117) {
                         // Modify the icon type to be Premium
-                        icon.iconType = 741; // Magic number for premium icon
+                        icon.iconType = YT_PREMIUM_STANDALONE; // Magic number (741) for premium icon
                         // Modify the text
                         ((YTIStringRun *)(compactLinkRenderer.title.runsArray.firstObject)).text = LOC(@"FAKE_YOUR_PREMIUM_BENEFITS");
                     }

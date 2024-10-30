@@ -1479,10 +1479,10 @@ static int contrastMode() {
 
 // Red Subscribe Button - 17.33.2 and up - @arichornlover
 %hook ELMContainerNode
-- (void)setBackgroundColor:(id)color {
+- (void)setBackgroundColor:(UIColor *)color {
     NSString *description = [self description];
-    if (IS_ENABLED(kRedSubscribeButton)) {
-        if ([description containsString:@"eml.compact_subscribe_button"]) {
+    if ([description containsString:@"eml.compact_subscribe_button"]) {
+        if (IS_ENABLED(@"kRedSubscribeButton")) {
             color = [UIColor redColor];
         }
     }

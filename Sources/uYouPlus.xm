@@ -1033,7 +1033,10 @@ static int contrastMode() {
 %group gFullscreenToTheRight
 %hook YTWatchViewController
 - (UIInterfaceOrientationMask)supportedInterfaceOrientations {
-    return UIInterfaceOrientationMaskLandscapeRight | UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown;
+    return UIInterfaceOrientationMaskLandscapeRight;
+}
+- (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
+    return UIInterfaceOrientationLandscapeRight;
 }
 %end
 %end

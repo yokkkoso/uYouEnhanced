@@ -984,7 +984,7 @@ static int contrastMode() {
     if (IS_ENABLED(@"hideNotificationButton_enabled")) {
         self.notificationButton.hidden = YES;
     }
-    if (IS_ENABLED(@"hideSponsorBlockButton_enabled")) { 
+    if (IS_ENABLED(kHideiSponsorBlockButton)) { 
         self.sponsorBlockButton.hidden = YES;
         self.sponsorBlockButton.frame = CGRectZero;
     }

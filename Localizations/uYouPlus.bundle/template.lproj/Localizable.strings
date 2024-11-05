@@ -295,7 +295,7 @@ https://github.com/PoomSmart/Return-YouTube-Dislikes/tree/main/layout/Library/Ap
 "ADBLOCK_WORKAROUND" = "AdBlock Workaround";
 "ADBLOCK_WORKAROUND_DESC" = "Uses stronger adblocking code.";
 "FAKE_PREMIUM" = "Fake Premium";
-"FAKE_PREMIUM_DESC" = "Uses Premium logo and creates fake buttons in the You tab.";
+"FAKE_PREMIUM_DESC" = "Uses Premium logo and creates fake buttons in the You tab. Will disable animated YouTube logo.";
 "FAKE_PREMIUM_WARNING" = "The *You* Tab doesn't exist in v%@, fake buttons will not be created.\nBut the *Fake Premium Logo* will still work.";
 "FAKE_YOUR_PREMIUM_BENEFITS" = "Your Premium benefits";
 "FAKE_DOWNLOADS" = "Downloads";
@@ -316,6 +316,8 @@ https://github.com/PoomSmart/Return-YouTube-Dislikes/tree/main/layout/Library/Ap
 "HIDE_INDICATORS_DESC" = "Hides all Indicators that are currently in the App.";
 "FIX_CASTING" = "Fix Casting";
 "FIX_CASTING_DESC" = "Changes certain A/B flags to fix casting.";
+"NEW_SETTINGS_UI" = "Use New Settings UI";
+"NEW_SETTINGS_UI_DESC" = "Enables the new Settings UI with tweak categories.";
 
 "DEFAULT" = "Default";
 "CUSTOM_COLOR" = "Custom Color";

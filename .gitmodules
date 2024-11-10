@@ -20,7 +20,7 @@
 	branch = main
 [submodule "Tweaks/Return-YouTube-Dislikes"]
 	path = Tweaks/Return-YouTube-Dislikes
-	url = https://github.com/PoomSmart/Return-YouTube-Dislikes.git
+	url = https://github.com/arichornloverALT/Return-YouTube-Dislikes.git
 [submodule "Tweaks/YouTubeHeader"]
 	path = Tweaks/YouTubeHeader
 	url = https://github.com/arichornloverALT/YouTubeHeader.git

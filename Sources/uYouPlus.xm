@@ -1417,7 +1417,6 @@ static int contrastMode() {
 }
 %end
 
-/* DISABLED TO SEE IF IT FIXES THE SHORTS PROBLEM
 // Shorts Controls Overlay Options
 %hook _ASDisplayView
 - (void)didMoveToWindow {
@@ -1474,7 +1473,6 @@ static int contrastMode() {
     else { return %orig; }
 }
 %end
-*/
 
 /* DISABLED DUE TO CONFLICTS
 // Hide Community Posts - @michael-winay, @arichornlover, @iCrazeiOS @PoomSmart & @Dayanch96

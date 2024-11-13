@@ -222,6 +222,19 @@ YTMainAppControlsOverlayView *controlsOverlayView;
 
 %hook YTIPlayerResponse
 - (BOOL)isMonetized { return NO; }
+%new(@@:)
+- (NSMutableArray *)playerAdsArray {
+    return [NSMutableArray array];
+}
+%new(@@:)
+- (NSMutableArray *)adSlotsArray {
+    return [NSMutableArray array];
+}
+%end
+
+%hook YTIClientMdxGlobalConfig
+%new(B@:)
+- (BOOL)enableSkippableAd { return YES; }
 %end
 
 %hook YTAdShieldUtils
@@ -248,15 +261,6 @@ YTMainAppControlsOverlayView *controlsOverlayView;
 
 %hook MDXSession
 - (void)adPlaying:(id)ad {}
-%end
-
-%hook YTReelInfinitePlaybackDataSource
-- (void)setReels:(NSMutableOrderedSet <YTReelModel *> *)reels {
-    [reels removeObjectsAtIndexes:[reels indexesOfObjectsPassingTest:^BOOL(YTReelModel *obj, NSUInteger idx, BOOL *stop) {
-        return [obj respondsToSelector:@selector(videoType)] ? obj.videoType == 3 : NO;
-    }]];
-    %orig;
-}
 %end
 %end
 
@@ -268,6 +272,18 @@ YTMainAppControlsOverlayView *controlsOverlayView;
 %end
 %hook YTIPlayerResponse
 - (BOOL)isMonetized { return NO; }
+%new(@@:)
+- (NSMutableArray *)playerAdsArray {
+    return [NSMutableArray array];
+}
+%new(@@:)
+- (NSMutableArray *)adSlotsArray {
+    return [NSMutableArray array];
+}
+%end
+%hook YTIClientMdxGlobalConfig
+%new(B@:)
+- (BOOL)enableSkippableAd { return YES; }
 %end
 %hook YTAdShieldUtils
 + (id)spamSignalsDictionary { return @{}; }
@@ -288,14 +304,6 @@ YTMainAppControlsOverlayView *controlsOverlayView;
 %end
 %hook MDXSession
 - (void)adPlaying:(id)ad {}
-%end
-%hook YTReelInfinitePlaybackDataSource
-- (void)setReels:(NSMutableOrderedSet <YTReelModel *> *)reels {
-    [reels removeObjectsAtIndexes:[reels indexesOfObjectsPassingTest:^BOOL(YTReelModel *obj, NSUInteger idx, BOOL *stop) {
-        return [obj respondsToSelector:@selector(videoType)] ? obj.videoType == 3 : NO;
-    }]];
-    %orig;
-}
 %end
 NSString *getAdString(NSString *description) {
     if ([description containsString:@"brand_promo"])

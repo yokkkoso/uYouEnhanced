@@ -287,18 +287,18 @@
 - **Compatibility:** Requires iOS/iPadOS 15.0 or later.
 - For AltStore user: 
 
-  - My official AltStore repo (uYouEnhanced - iOS 15+): https://therealfoxster.github.io/altsource-viewer/view/?source=https://raw.githubusercontent.com/arichornloverALT/arichornloverALT.github.io/main/apps.json
+  - My official AltStore repo (uYouEnhanced - iOS 15+): https://therealfoxster.github.io/altsource-viewer/view/?source=https://raw.githubusercontent.com/arichornlover/arichornlover.github.io/main/apps.json
 
-  - My alternative AltStore repo (uYouEnhanced - iOS 14+ - mainly for Trollstore users): https://therealfoxster.github.io/altsource-viewer/view/?source=https://raw.githubusercontent.com/arichornloverALT/arichornloverALT.github.io/main/apps-legacy.json - not sure if i can update this ipa. this IPA will be locked in YouTube Version **19.20.2**
+  - My alternative AltStore repo (uYouEnhanced - iOS 14+ - mainly for Trollstore users): https://therealfoxster.github.io/altsource-viewer/view/?source=https://raw.githubusercontent.com/arichornlover/arichornlover.github.io/main/apps-legacy.json - not sure if i can update this ipa. this IPA will be locked in YouTube Version **19.20.2**
 
-  - [Open in AltStore (v19.40.4-3.0.4)](https://tinyurl.com/44zmcw8t) - It will take a while to install because AltStore needs to download the IPA first.
+  - [Open in AltStore (v19.42.1-3.0.4)](https://tinyurl.com/6ahu7ctd) - It will take a while to install because AltStore needs to download the IPA first.
 
 <details>
-  <summary>Version information (last updated: Oct 10, 2024)</summary>
+  <summary>Version information (last updated: Nov 17, 2024)</summary>
 
 | **Tweaks/App** | **Developer** | **Version** | **Open source** |
 | - | - | :-: | :-:  |
-| **YouTube** | Google Inc | 19.40.4 | ✖︎ |
+| **YouTube** | Google Inc | 19.42.1 | ✖︎ |
 | [uYou](https://github.com/MiRO92/uYou-for-YouTube) | [MiRO92](https://twitter.com/miro92) | 3.0.4 | ✖︎ |
 | **Open in YouTube** | [CokePokes](https://github.com/CokePokes) | 1.2 | [✔︎](https://github.com/CokePokes/YoutubeExtensions) |
 | **iSponsorBlock** | [Galactic-Dev](https://github.com/Galactic-Dev) | 1.2.9 | [✔︎](https://github.com/Galactic-Dev/iSponsorBlock) |
@@ -316,10 +316,10 @@
 | **NoYTPremium** | [PoomSmart](https://twitter.com/poomsmart) | 1.0.4 | [✔︎](https://github.com/PoomSmart/NoYTPremium) |
 | **YTNoPaidPromo** | [PoomSmart](https://twitter.com/poomsmart) | 1.0.0 | [✔︎](https://github.com/PoomSmart/YTNoPaidPromo) |
 | **YouRememberCaption** | [PoomSmart](https://twitter.com/poomsmart) | 1.0.0 | [✔︎](https://poomsmart.github.io/repo/depictions/youremembercaption.html) |
-| **Return YouTube Dislike** | [PoomSmart](https://twitter.com/poomsmart) | 1.12.7 | [✔︎](https://github.com/PoomSmart/Return-YouTube-Dislikes) |
+| **Return YouTube Dislike** | [PoomSmart](https://twitter.com/poomsmart) | 1.12.10 | [✔︎](https://github.com/PoomSmart/Return-YouTube-Dislikes) |
 | **YouMute** | [PoomSmart](https://twitter.com/poomsmart) | 1.2.3 | [✔︎](https://github.com/PoomSmart/YouMute) |
 | **YouQuality** | [PoomSmart](https://twitter.com/poomsmart) | 1.2.1 | [✔︎](https://github.com/PoomSmart/YouQuality) |
-| **YouTube-X** | [PoomSmart](https://twitter.com/poomsmart) | 1.7.3 | [✔︎](https://github.com/PoomSmart/YouTube-X) |
+| **YouTube-X** | [PoomSmart](https://twitter.com/poomsmart) | 1.7.5 | [✔︎](https://github.com/PoomSmart/YouTube-X) |
 | **YTVideoOverlay** | [PoomSmart](https://twitter.com/poomsmart) | 1.2.0 | [✔︎](https://github.com/PoomSmart/YTVideoOverlay) |
 | **YTHoldForSpeed** | [joshuaseltzer](https://github.com/joshuaseltzer) | 1.2.1 | [✔︎](https://github.com/joshuaseltzer/YTHoldForSpeed) |
 | **LowContrastMode** | [arichornlover](https://github.com/arichornlover) | 1.5.2 | [✔︎](https://github.com/arichornlover/YTLowContrastMode) |
@@ -333,9 +333,9 @@
 |-----------|-----------------------|--------------------------|--------------------------|
 | MiRO92 | uYou 2.1 / 2.3~1 | ~v16.42.3~ v17.33.2 - 18.01.6 | iOS 13.0 - iOS 15.8.2 |
 | MiRO92 | uYou 3.0 | v18.06.6 - v18.18.2 | iOS 14.0 - iOS 15.8.2 |
-| MiRO92 | uYou 3.0.1 | v18.19.1 - v18.41.5 | iOS 14.0 - iOS 17.5.1 |
-| MiRO92 | uYou 3.0.2 / 3.0.3 | v19.06.2 - v19.15.1 | iOS 14.0 - iOS 17.5.1 |
-| MiRO92 | uYou 3.0.4 | v19.06.2 - v19.22.6 | iOS 14.0 - 17.5.1 |
+| MiRO92 | uYou 3.0.1 | v18.19.1 - v18.41.5 | iOS 14.0 - iOS 18.1.0 |
+| MiRO92 | uYou 3.0.2 / 3.0.3 | v19.06.2 - v19.15.1 | iOS 14.0 - iOS 18.1.0 |
+| MiRO92 | uYou 3.0.4 | v19.06.2 - v19.22.6 | iOS 14.0 - 18.1.0 |
 
 # Building
 

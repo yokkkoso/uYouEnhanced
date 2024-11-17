@@ -262,6 +262,15 @@ YTMainAppControlsOverlayView *controlsOverlayView;
 %hook MDXSession
 - (void)adPlaying:(id)ad {}
 %end
+
+%hook YTReelInfinitePlaybackDataSource
+- (YTReelModel *)makeContentModelForEntry:(id)entry {
+    YTReelModel *model = %orig;
+    if ([model respondsToSelector:@selector(videoType)] && model.videoType == 3)
+        return nil;
+    return model;
+}
+%end
 %end
 
 // uYou AdBlock Workaround (Note: disables uYou's "Remove YouTube Ads" Option) - @PoomSmart, @arichornlover & @Dodieboy

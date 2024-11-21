@@ -608,9 +608,11 @@ static NSMutableArray <YTIItemSectionRenderer *> *filteredArray(NSArray <YTIItem
 %hook YTHeaderLogoController
 - (void)setTopbarLogoRenderer:(YTITopbarLogoRenderer *)renderer {
     // Modify the type of the icon before setting the renderer
-    YTIIcon *icon = [%c(YTIIcon) new];
-    icon.iconType = YT_PREMIUM_LOGO; // magic number (537) for Premium icon, hopefully it doesnt change. 158 (YT_DEFAULT_LOGO) is default logo.
-    renderer.iconImage = icon;
+    YTIIcon *icon = renderer.iconImage;
+    if (icon) {
+        icon.iconType = YT_PREMIUM_LOGO; // magic number (537) for Premium icon, hopefully it doesnt change. 158 (YT_DEFAULT_LOGO) is default logo.
+        }
+    // Use this modified renderer
     %orig;
 }
 // For when spoofing before 18.34.5

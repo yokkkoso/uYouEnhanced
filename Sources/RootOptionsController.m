@@ -35,14 +35,12 @@
     [self.backButton setTintColor:[UIColor systemBlueColor]];
     [self.backButton setImage:backImage forState:UIControlStateNormal];
     [self.backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    [self.backButton setFrame:CGRectMake(0, 0, 24, 24)];
     UIBarButtonItem *customBackButton = [[UIBarButtonItem alloc] initWithCustomView:self.backButton];
     self.navigationItem.leftBarButtonItem = customBackButton;
 }
 
 - (void)setupTableView {
-    UITableViewStyle style = UITableViewStyleInsetGrouped;
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:style];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleInsetGrouped];
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -78,8 +76,8 @@
 
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        [self configureCell:cell atIndexPath:indexPath];
     }
+    [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
 

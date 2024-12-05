@@ -64,6 +64,8 @@ SWITCH3(
 );
 */
 
+NSString *cacheDescription = [NSString stringWithFormat:LOC(@"Current Cache Size: %@"), GetCacheSize()];
+
 static NSString *GetCacheSize() { // YTLite - @dayanch96
     NSString *cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
     NSArray *filesArray = [[NSFileManager defaultManager] subpathsOfDirectoryAtPath:cachePath error:nil];
@@ -332,9 +334,7 @@ extern NSBundle *uYouPlusBundle();
 
     YTSettingsSectionItem *clearCache = [%c(YTSettingsSectionItem)
         itemWithTitle:@"Clear Cache"
-        titleDescription:^NSString *() {
-            return [NSString stringWithFormat:LOC(@"Current Cache Size: %@"), GetCacheSize()];
-        }
+        titleDescription:cacheDescription
         accessibilityIdentifier:nil
         detailTextBlock:nil
         selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
@@ -342,7 +342,6 @@ extern NSBundle *uYouPlusBundle();
                 NSString *cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
                 [[NSFileManager defaultManager] removeItemAtPath:cachePath error:nil];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [settingsViewController.tableView reloadData];
                     [[%c(YTToastResponderEvent) eventWithMessage:LOC(@"Done") firstResponder:[self parentResponder]] send];
                 });
             });

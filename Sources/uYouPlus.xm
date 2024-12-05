@@ -443,21 +443,13 @@ static NSMutableArray <YTIItemSectionRenderer *> *filteredArray(NSArray <YTIItem
 %group gCenterYouTubeLogo 
 %hook YTNavigationBarTitleView
 - (void)setShouldCenterNavBarTitleView:(BOOL)center {
+    center = YES;
     %orig(center);
-    if (center) {
-        [self alignCustomViewToCenterOfWindow];
-    }
+    [self alignCustomViewToCenterOfWindow];
 }
 - (BOOL)shouldCenterNavBarTitleView {
     return YES;
 }
-%new;
-- (void)alignCustomViewToCenterOfWindow {
-    CGRect frame = self.customView.frame;
-    frame.origin.x = (self.window.frame.size.width - frame.size.width) / 2;
-    self.customView.frame = frame;
-}
-%end
 %end
 
 // YTMiniPlayerEnabler: https://github.com/level3tjg/YTMiniplayerEnabler/
@@ -605,7 +597,7 @@ static NSMutableArray <YTIItemSectionRenderer *> *filteredArray(NSArray <YTIItem
 // Fake premium - @bhackel
 %group gFakePremium
 // YouTube Premium Logo - @arichornlover & bhackel
-%hook YTHeaderLogoController
+%hook YTHeaderLogoControllerImpl // originally was "YTHeaderLogoController"
 - (void)setTopbarLogoRenderer:(YTITopbarLogoRenderer *)renderer {
     // Modify the type of the icon before setting the renderer
     YTIIcon *icon = renderer.iconImage;

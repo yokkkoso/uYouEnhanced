@@ -4,6 +4,7 @@
 #import <YouTubeHeader/YTSettingsSectionItemManager.h>
 #import <YouTubeHeader/YTUIUtils.h>
 #import <YouTubeHeader/YTSettingsPickerViewController.h>
+#import <YouTubeHeader/YTToastResponderEvent.h>
 #import "uYouPlus.h"
 
 // For displaying snackbars

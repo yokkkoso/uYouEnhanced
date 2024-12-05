@@ -1534,7 +1534,7 @@ NSString *cacheDescription = [NSString stringWithFormat:@"%@", GetCacheSize()];
         });
     );
     SWITCH(LOC(@"DISABLE_ANIMATED_YOUTUBE_LOGO"), nil, kDisableAnimatedYouTubeLogo);
-//  SWITCH(LOC(@"CENTER_YOUTUBE_LOGO"), LOC(@"CENTER_YOUTUBE_LOGO_DESC"), kCenterYouTubeLogo);
+    SWITCH(LOC(@"CENTER_YOUTUBE_LOGO"), LOC(@"CENTER_YOUTUBE_LOGO_DESC"), kCenterYouTubeLogo);
     SWITCH(LOC(@"HIDE_YOUTUBE_LOGO"), LOC(@"HIDE_YOUTUBE_LOGO_DESC"), kHideYouTubeLogo);
     SWITCH2(LOC(@"ENABLE_YT_STARTUP_ANIMATION"), LOC(@"ENABLE_YT_STARTUP_ANIMATION_DESC"), kYTStartupAnimation);
     SWITCH(LOC(@"DISABLE_HINTS"), LOC(@"DISABLE_HINTS_DESC"), kDisableHints);

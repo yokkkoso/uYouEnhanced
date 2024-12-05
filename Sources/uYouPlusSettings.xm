@@ -64,7 +64,7 @@ SWITCH3(
 );
 */
 
-NSString *cacheDescription = [NSString stringWithFormat:LOC(@"Current Cache Size: %@"), GetCacheSize()];
+NSString *cacheDescription = [NSString stringWithFormat:@"%@", GetCacheSize()];
 
 static NSString *GetCacheSize() { // YTLite - @dayanch96
     NSString *cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;

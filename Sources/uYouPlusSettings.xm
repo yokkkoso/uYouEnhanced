@@ -64,8 +64,6 @@ SWITCH3(
 );
 */
 
-NSString *cacheDescription = [NSString stringWithFormat:@"%@", GetCacheSize()];
-
 static NSString *GetCacheSize() { // YTLite - @dayanch96
     NSString *cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
     NSArray *filesArray = [[NSFileManager defaultManager] subpathsOfDirectoryAtPath:cachePath error:nil];
@@ -332,6 +330,7 @@ extern NSBundle *uYouPlusBundle();
     ];
     [sectionItems addObject:appIcon];
 
+NSString *cacheDescription = [NSString stringWithFormat:@"%@", GetCacheSize()];
     YTSettingsSectionItem *clearCache = [%c(YTSettingsSectionItem)
         itemWithTitle:@"Clear Cache"
         titleDescription:cacheDescription

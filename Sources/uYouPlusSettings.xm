@@ -330,26 +330,26 @@ extern NSBundle *uYouPlusBundle();
     ];
     [sectionItems addObject:appIcon];
 
-YTSettingsSectionItem *clearCache = [%c(YTSettingsSectionItem)
-    itemWithTitle:LOC(@"Clear Cache")
-    titleDescription:nil
-    accessibilityIdentifier:nil
-    detailTextBlock:^NSString *() {
-        return GetCacheSize();
-    }
-    selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-            NSString *cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
-            [[NSFileManager defaultManager] removeItemAtPath:cachePath error:nil];
-            dispatch_async(dispatch_get_main_queue(), ^{
-                [cell setDetailText:GetCacheSize()];
-                [[%c(YTToastResponderEvent) eventWithMessage:LOC(@"Done") firstResponder:[self parentResponder]] send];
+    YTSettingsSectionItem *clearCache = [%c(YTSettingsSectionItem)
+        itemWithTitle:LOC(@"ClearCache")
+        titleDescription:nil
+        accessibilityIdentifier:@"YTLiteSectionItem"
+        detailTextBlock:^NSString *() {
+            return GetCacheSize();
+        }
+        selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                NSString *cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
+                [[NSFileManager defaultManager] removeItemAtPath:cachePath error:nil];
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    cell.detailTextLabel.text = GetCacheSize();
+                    [settingsViewController showToastWithMessage:LOC(@"Done")];
+                });
             });
-        });
-        return YES;
-    }
-];
-[sectionItems addObject:clearCache];
+            return YES;
+        }
+    ];
+    [sectionItems addObject:clearCache];
 
     YTSettingsSectionItem *clearNotifications = [%c(YTSettingsSectionItem)
         itemWithTitle:LOC(@"CLEAR_NOTIFICATIONS")

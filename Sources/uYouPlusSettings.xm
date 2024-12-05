@@ -64,6 +64,22 @@ SWITCH3(
 );
 */
 
+static NSString *GetCacheSize() { // YTLite - @dayanch96
+    NSString *cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
+    NSArray *filesArray = [[NSFileManager defaultManager] subpathsOfDirectoryAtPath:cachePath error:nil];
+
+    unsigned long long int folderSize = 0;
+    for (NSString *fileName in filesArray) {
+        NSString *filePath = [cachePath stringByAppendingPathComponent:fileName];
+        NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:filePath error:nil];
+        folderSize += [fileAttributes fileSize];
+    }
+
+    NSByteCountFormatter *formatter = [[NSByteCountFormatter alloc] init];
+    formatter.countStyle = NSByteCountFormatterCountStyleFile;
+
+    return [formatter stringFromByteCount:folderSize];
+}
 static int contrastMode() {
     NSString *appVersion = [[[NSBundle mainBundle] infoDictionary] objectForKey:@"CFBundleShortVersionString"];
     NSComparisonResult result1 = [appVersion compare:@"17.33.2" options:NSNumericSearch];
@@ -313,6 +329,27 @@ extern NSBundle *uYouPlusBundle();
         }
     ];
     [sectionItems addObject:appIcon];
+
+YTSettingsSectionItem *clearCache = [%c(YTSettingsSectionItem)
+    itemWithTitle:LOC(@"Clear Cache")
+    titleDescription:nil
+    accessibilityIdentifier:nil
+    detailTextBlock:^NSString *() {
+        return GetCacheSize();
+    }
+    selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            NSString *cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
+            [[NSFileManager defaultManager] removeItemAtPath:cachePath error:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [cell setDetailText:GetCacheSize()];
+                [[%c(YTToastResponderEvent) eventWithMessage:LOC(@"Done") firstResponder:[self parentResponder]] send];
+            });
+        });
+        return YES;
+    }
+];
+[sectionItems addObject:clearCache];
 
     YTSettingsSectionItem *clearNotifications = [%c(YTSettingsSectionItem)
         itemWithTitle:LOC(@"CLEAR_NOTIFICATIONS")

@@ -9,12 +9,19 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4.2.1
+        uses: actions/checkout@v4.2.2
 
       - name: Set up Git
         run: |
            git config --global user.email "actions@github.com"
            git config --global user.name "GitHub Actions"
+
+      - name: Add uYouEnhanced submodules
+        run: |
+          git submodule add https://github.com/PoomSmart/YTIcons Tweaks/YTIcons
+          git add .
+          git commit -m "added YTIcons tweak"
+          git push origin
 
       - name: Update submodules
         run: |
@@ -33,6 +40,8 @@ jobs:
           git submodule update --init --recursive --remote Tweaks/YTABConfig
           git add .
           git submodule update --init --recursive --remote Tweaks/YTClassicVideoQuality
+          git add .
+          git submodule update --init --recursive --remote Tweaks/YTIcons
           git add .
           git submodule update --init --recursive --remote Tweaks/YTUHD
           git add .

@@ -332,17 +332,17 @@ extern NSBundle *uYouPlusBundle();
 
     YTSettingsSectionItem *clearCache = [%c(YTSettingsSectionItem)
         itemWithTitle:@"Clear Cache"
-        titleDescription:nil
-        accessibilityIdentifier:nil
-        detailTextBlock:^NSString *() {
-            return GetCacheSize();
+        titleDescription:^NSString *() {
+            return [NSString stringWithFormat:LOC(@"Current Cache Size: %@"), GetCacheSize()];
         }
+        accessibilityIdentifier:nil
+        detailTextBlock:nil
         selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                 NSString *cachePath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES).firstObject;
                 [[NSFileManager defaultManager] removeItemAtPath:cachePath error:nil];
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [cell setDetailText:GetCacheSize()];
+                    [settingsViewController.tableView reloadData];
                     [[%c(YTToastResponderEvent) eventWithMessage:LOC(@"Done") firstResponder:[self parentResponder]] send];
                 });
             });

@@ -1088,7 +1088,7 @@ static int contrastMode() {
 %group gStockVolumeHUD
 %hook YTColdConfig
 - (BOOL)iosUseSystemVolumeControlInFullscreen {
-    return IS_ENABLED(kStockVolumeHUD) ? YES : %orig;
+    return IS_ENABLED(kStockVolumeHUD) ? YES : NO;
 }
 %end
 %hook UIApplication 

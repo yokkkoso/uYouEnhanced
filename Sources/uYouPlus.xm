@@ -70,7 +70,7 @@ static BOOL findCell(ASNodeController *nodeController, NSArray <NSString *> *ide
                     return YES;
                 }
 
-                if (findCell((ASNodeController *)child, identifiers)) {
+                if (findCell((ASNodeController *)child, identifiers)) { // Cast to ASNodeController
                     return YES;
                 }
             }
@@ -84,14 +84,6 @@ static BOOL findCell(ASNodeController *nodeController, NSArray <NSString *> *ide
     if ([self.accessibilityIdentifier isEqualToString:@"id.video.scrollable_action_bar"]) {
         ASCellNode *node = [element node];
         ASNodeController *nodeController = [node controller];
-
-        NSArray *identifiers = @[
-            @"id.video.share.button",
-            @"id.video.remix.button",
-            @"Thanks",
-            @"clip_button.eml",
-            @"id.ui.add_to.offline.button"
-        ];
 
         if (IS_ENABLED(@"hideShareButton_enabled") && findCell(nodeController, @[@"id.video.share.button"])) {
             return CGSizeZero;

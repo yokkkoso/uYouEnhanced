@@ -70,7 +70,7 @@ static BOOL findCell(ASNodeController *nodeController, NSArray <NSString *> *ide
                     return YES;
                 }
 
-                if (findCell((ASNodeController *)child, identifiers)) { // Cast to ASNodeController
+                if (findCell(child, identifiers)) {
                     return YES;
                 }
             }

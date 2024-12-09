@@ -90,3 +90,6 @@
 [submodule "Tweaks/YTIcons"]
 	path = Tweaks/YTIcons
 	url = https://github.com/PoomSmart/YTIcons
+[submodule "Tweaks/YouSpeed"]
+	path = Tweaks/YouSpeed
+	url = https://github.com/PoomSmart/YouSpeed

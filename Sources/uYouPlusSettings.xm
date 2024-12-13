@@ -208,7 +208,6 @@ extern NSBundle *uYouPlusBundle();
                 [settingsString writeToURL:tempFileURL atomically:YES encoding:NSUTF8StringEncoding error:nil];
                 UIDocumentPickerViewController *documentPicker = [[UIDocumentPickerViewController alloc] initWithURL:tempFileURL inMode:UIDocumentPickerModeExportToService];
                 documentPicker.allowsMultipleSelection = NO;
-                documentPicker.delegate = self;
                 [settingsViewController presentViewController:documentPicker animated:YES completion:nil];
             } else {
                 // Copy Settings functionality (DEFAULT - Copies to Clipboard)
@@ -1657,9 +1656,11 @@ NSString *cacheDescription = [NSString stringWithFormat:@"%@", GetCacheSize()];
                                                                                        message:@"Failed to import settings. Reverted to previous settings." 
                                                                                 preferredStyle:UIAlertControllerStyleAlert];
                     [errorAlert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+                    YTSettingsViewController *settingsViewController = [self valueForKey:@"_settingsViewControllerDelegate"];
                     [settingsViewController presentViewController:errorAlert animated:YES completion:nil];
                 }
             }]];
+            YTSettingsViewController *settingsViewController = [self valueForKey:@"_settingsViewControllerDelegate"];
             [settingsViewController presentViewController:confirmImportAlert animated:YES completion:nil];
         }
     }

@@ -1648,7 +1648,6 @@ NSString *cacheDescription = [NSString stringWithFormat:@"%@", GetCacheSize()];
                 if (success) {
                     YTSettingsViewController *settingsViewController = [self valueForKey:@"_settingsViewControllerDelegate"];
                     [settingsViewController reloadData];
-                    [[%c(GOOHUDManagerInternal) sharedInstance] showMessageMainThread:[%c(YTHUDMessage) messageWithText:@"Settings applied"]];
                     SHOW_RELAUNCH_YT_SNACKBAR;
                 } else {
                     NSDictionary *backupSettings = [NSKeyedUnarchiver unarchiveObjectWithData:backupData];

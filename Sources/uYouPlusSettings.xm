@@ -188,7 +188,7 @@ extern NSBundle *uYouPlusBundle();
     ];
     [sectionItems addObject:developers];
 
-# pragma mark - Copy and Paste Settings
+# pragma mark - Copy/Import and Paste/Export Settings
     YTSettingsSectionItem *copySettings = [%c(YTSettingsSectionItem)
         itemWithTitle:IS_ENABLED(kReplaceCopyandPasteButtons) ? LOC(@"EXPORT_SETTINGS") : LOC(@"COPY_SETTINGS")
         titleDescription:IS_ENABLED(kReplaceCopyandPasteButtons) ? LOC(@"EXPORT_SETTINGS_DESC") : LOC(@"COPY_SETTINGS_DESC")
@@ -208,6 +208,7 @@ extern NSBundle *uYouPlusBundle();
                 [settingsString writeToURL:tempFileURL atomically:YES encoding:NSUTF8StringEncoding error:nil];
                 UIDocumentPickerViewController *documentPicker = [[UIDocumentPickerViewController alloc] initWithURL:tempFileURL inMode:UIDocumentPickerModeExportToService];
                 documentPicker.allowsMultipleSelection = NO;
+                documentPicker.delegate = self;
                 [settingsViewController presentViewController:documentPicker animated:YES completion:nil];
             } else {
                 // Copy Settings functionality (DEFAULT - Copies to Clipboard)
@@ -1621,33 +1622,53 @@ NSString *cacheDescription = [NSString stringWithFormat:@"%@", GetCacheSize()];
         NSURL *fileURL = urls.firstObject;
         NSString *fileContents = [NSString stringWithContentsOfURL:fileURL encoding:NSUTF8StringEncoding error:nil];
         if (fileContents.length > 0) {
-            NSArray *lines = [fileContents componentsSeparatedByString:@"\n"];
-            for (NSString *line in lines) {
-                NSArray *components = [line componentsSeparatedByString:@": "];
-                if (components.count == 2) {
-                    NSString *key = components[0];
-                    NSString *value = components[1];
-                    [[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
+            UIAlertController *confirmImportAlert = [UIAlertController alertControllerWithTitle:@"Confirm Import" 
+                                                                                      message:@"Do you want to import the settings from the selected file?" 
+                                                                               preferredStyle:UIAlertControllerStyleAlert];
+            [confirmImportAlert addAction:[UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:nil]];
+            [confirmImportAlert addAction:[UIAlertAction actionWithTitle:@"Import" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+                NSDictionary *currentSettings = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];
+                NSData *backupData = [NSKeyedArchiver archivedDataWithRootObject:currentSettings];
+                BOOL success = YES;
+                NSArray *lines = [fileContents componentsSeparatedByString:@"\n"];
+                for (NSString *line in lines) {
+                    NSArray *components = [line componentsSeparatedByString:@": "];
+                    if (components.count == 2) {
+                        NSString *key = components[0];
+                        NSString *value = components[1];
+                        @try {
+                            [[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
+                        }
+                        @catch (NSException *exception) {
+                            success = NO;
+                            break;
+                        }
+                    }
                 }
-            }
-            YTSettingsViewController *settingsViewController = [self valueForKey:@"_settingsViewControllerDelegate"];
-            [settingsViewController reloadData];
-            [[%c(GOOHUDManagerInternal) sharedInstance] showMessageMainThread:[%c(YTHUDMessage) messageWithText:@"Settings applied."]];
+                if (success) {
+                    YTSettingsViewController *settingsViewController = [self valueForKey:@"_settingsViewControllerDelegate"];
+                    [settingsViewController reloadData];
+                    [[%c(GOOHUDManagerInternal) sharedInstance] showMessageMainThread:[%c(YTHUDMessage) messageWithText:@"Settings applied"]];
+                    SHOW_RELAUNCH_YT_SNACKBAR;
+                } else {
+                    NSDictionary *backupSettings = [NSKeyedUnarchiver unarchiveObjectWithData:backupData];
+                    for (NSString *key in backupSettings) {
+                        [[NSUserDefaults standardUserDefaults] setObject:backupSettings[key] forKey:key];
+                    }
+                    UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Error" 
+                                                                                       message:@"Failed to import settings. Reverted to previous settings." 
+                                                                                preferredStyle:UIAlertControllerStyleAlert];
+                    [errorAlert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+                    [settingsViewController presentViewController:errorAlert animated:YES completion:nil];
+                }
+            }]];
+            [settingsViewController presentViewController:confirmImportAlert animated:YES completion:nil];
         }
     }
 }
 
 - (void)documentPickerWasCancelled:(UIDocumentPickerViewController *)controller {
     NSLog(@"Document picker was cancelled");
-}
-
-// Update text without the need of restarting the app.
-- (void)updateCopyAndPasteText {
-    NSString *newTitle = IS_ENABLED(kReplaceCopyandPasteButtons) ? LOC(@"IMPORT_SETTINGS") : LOC(@"PASTE_SETTINGS");
-    NSString *newTitleDescription = IS_ENABLED(kReplaceCopyandPasteButtons) ? LOC(@"IMPORT_SETTINGS_DESC") : LOC(@"PASTE_SETTINGS_DESC");
-    [pasteSettings setTitle:newTitle];
-    [pasteSettings setTitleDescription:newTitleDescription];
-    [settingsViewController reloadData];
 }
 
 //

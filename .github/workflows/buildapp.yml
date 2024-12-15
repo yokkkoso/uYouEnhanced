@@ -140,6 +140,7 @@ jobs:
       - name: Fix compiling & Build Package
         id: build_package
         run: |
+          export THEOS=/opt/theos
           cd ${{ github.workspace }}/main
           sed -i '' "30s#.*#BUNDLE_ID = ${{ env.BUNDLE_ID }}#g" Makefile                          # Modify the bundle ID
           sed -i '' "29s#.*#DISPLAY_NAME = ${{ env.APP_NAME }}#g" Makefile                        # Modify the app name

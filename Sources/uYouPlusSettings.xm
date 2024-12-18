@@ -250,7 +250,6 @@ extern NSBundle *uYouPlusBundle();
                 // Import Settings functionality
                 UIDocumentPickerViewController *documentPicker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:@[@"public.text"] inMode:UIDocumentPickerModeImport];
                 documentPicker.allowsMultipleSelection = NO;
-                documentPicker.delegate = self;
                 [settingsViewController presentViewController:documentPicker animated:YES completion:nil];
                 return YES;
             } else {

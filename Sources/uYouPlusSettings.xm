@@ -250,6 +250,7 @@ extern NSBundle *uYouPlusBundle();
                 // Import Settings functionality
                 UIDocumentPickerViewController *documentPicker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:@[@"public.text"] inMode:UIDocumentPickerModeImport];
                 documentPicker.allowsMultipleSelection = NO;
+                documentPicker.delegate = self;
                 [settingsViewController presentViewController:documentPicker animated:YES completion:nil];
                 return YES;
             } else {
@@ -1625,7 +1626,6 @@ NSString *cacheDescription = [NSString stringWithFormat:@"%@", GetCacheSize()];
             NSLog(@"Error reading file: %@", error.localizedDescription);
             UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Failed to read the settings file." preferredStyle:UIAlertControllerStyleAlert];
             [errorAlert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
-            [settingsViewController presentViewController:errorAlert animated:YES completion:nil];
             return;
         }
         NSArray *lines = [settingsString componentsSeparatedByString:@"\n"];
@@ -1637,9 +1637,7 @@ NSString *cacheDescription = [NSString stringWithFormat:@"%@", GetCacheSize()];
                 [[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
             }
         }                 
-        [settingsViewController reloadData];
         [[%c(GOOHUDManagerInternal) sharedInstance] showMessageMainThread:[%c(YTHUDMessage) messageWithText:@"Settings imported"]];
-        SHOW_RELAUNCH_YT_SNACKBAR;
     }
 }
 

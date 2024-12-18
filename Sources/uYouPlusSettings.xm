@@ -188,7 +188,7 @@ extern NSBundle *uYouPlusBundle();
     ];
     [sectionItems addObject:developers];
 
-# pragma mark - Copy/Import and Paste/Export Settings
+# pragma mark - Copy/Export and Paste/Import Settings
     YTSettingsSectionItem *copySettings = [%c(YTSettingsSectionItem)
         itemWithTitle:IS_ENABLED(kReplaceCopyandPasteButtons) ? LOC(@"EXPORT_SETTINGS") : LOC(@"COPY_SETTINGS")
         titleDescription:IS_ENABLED(kReplaceCopyandPasteButtons) ? LOC(@"EXPORT_SETTINGS_DESC") : LOC(@"COPY_SETTINGS_DESC")
@@ -250,6 +250,32 @@ extern NSBundle *uYouPlusBundle();
                 // Import Settings functionality
                 UIDocumentPickerViewController *documentPicker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:@[@"public.text"] inMode:UIDocumentPickerModeImport];
                 documentPicker.allowsMultipleSelection = NO;
+                documentPicker.didPickDocumentHandler = ^(NSArray<NSURL *> * _Nonnull urls) {
+                    if (urls.count > 0) {
+                        NSURL *url = urls.firstObject;
+                        NSError *error = nil;
+                        NSString *settingsString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];
+                        if (error) {
+                            NSLog(@"Error reading file: %@", error.localizedDescription);
+                            UIAlertController *errorAlert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Failed to read the settings file." preferredStyle:UIAlertControllerStyleAlert];
+                            [errorAlert addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
+                            [settingsViewController presentViewController:errorAlert animated:YES completion:nil];
+                            return;
+                        }
+                        NSArray *lines = [settingsString componentsSeparatedByString:@"\n"];
+                        for (NSString *line in lines) {
+                            NSArray *components = [line componentsSeparatedByString:@": "];
+                            if (components.count == 2) {
+                                NSString *key = components[0];
+                                NSString *value = components[1];
+                                [[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
+                            }
+                        }                 
+                        [settingsViewController reloadData];
+                        [[%c(GOOHUDManagerInternal) sharedInstance] showMessageMainThread:[%c(YTHUDMessage) messageWithText:@"Settings imported"]];
+                        SHOW_RELAUNCH_YT_SNACKBAR;
+                    }
+                };
                 [settingsViewController presentViewController:documentPicker animated:YES completion:nil];
                 return YES;
             } else {

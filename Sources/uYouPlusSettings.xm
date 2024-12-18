@@ -1562,7 +1562,7 @@ NSString *cacheDescription = [NSString stringWithFormat:@"%@", GetCacheSize()];
     # pragma mark - Miscellaneous
     SECTION_HEADER(LOC(@"MISCELLANEOUS"));
 
-    SWITCH2(LOC(@"YouTube Sign-In Patch"), LOC(@"When enabled, it will allow you to sign in on the YouTube App when sideloaded.\nUnwanted Side Effects: Most Icons in the app will be Invisible & Notifications might not work."), kGoogleSignInPatch);
+    SWITCH2(LOC(@"YouTube Sign-In Patch"), LOC(@"When turned on, you can sign in to the YouTube App when Sideloaded.\nHowever, most material ui icons might disappear, and notifications could stop working.\nThis fix will automatically turn off after two app restarts."), kGoogleSignInPatch);
     SWITCH2(LOC(@"ADBLOCK_WORKAROUND_LITE"), LOC(@"ADBLOCK_WORKAROUND_LITE_DESC"), kAdBlockWorkaroundLite);
     SWITCH2(LOC(@"ADBLOCK_WORKAROUND"), LOC(@"ADBLOCK_WORKAROUND_DESC"), kAdBlockWorkaround);
     SWITCH3(

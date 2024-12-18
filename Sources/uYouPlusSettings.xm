@@ -250,8 +250,10 @@ extern NSBundle *uYouPlusBundle();
                 // Import Settings functionality
                 UIDocumentPickerViewController *documentPicker = [[UIDocumentPickerViewController alloc] initWithDocumentTypes:@[@"public.text"] inMode:UIDocumentPickerModeImport];
                 documentPicker.allowsMultipleSelection = NO;
+                __weak typeof(self) weakSelf = self;
                 documentPicker.didPickDocumentHandler = ^(NSArray<NSURL *> * _Nonnull urls) {
-                    if (urls.count > 0) {
+                    __strong typeof(weakSelf) strongSelf = weakSelf;
+                    if (strongSelf && urls.count > 0) {
                         NSURL *url = urls.firstObject;
                         NSError *error = nil;
                         NSString *settingsString = [NSString stringWithContentsOfURL:url encoding:NSUTF8StringEncoding error:&error];

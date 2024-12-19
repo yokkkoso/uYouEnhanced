@@ -18,6 +18,7 @@
 #import <YouTubeHeader/GPBMessage.h>
 #import <YouTubeHeader/MLPlayerStickySettings.h>
 #import <YouTubeHeader/YTAppDelegate.h>
+#import <YouTubeHeader/YTAssetLoader.h>
 #import <YouTubeHeader/YTCollectionViewCell.h>
 #import <YouTubeHeader/YTIBrowseRequest.h>
 #import <YouTubeHeader/YTIButtonRenderer.h>

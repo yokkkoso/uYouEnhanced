@@ -17,6 +17,56 @@ NSBundle *uYouPlusBundle() {
 NSBundle *tweakBundle = uYouPlusBundle();
 //
 
+// Notifications Tab - @arichornlover & @dayanch96
+%hook YTPivotBarView
+- (void)setRenderer:(YTIPivotBarRenderer *)renderer {
+    @try {
+        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kShowNotificationsTab"]) {
+            YTIBrowseEndpoint *endPoint = [[%c(YTIBrowseEndpoint) alloc] init];
+            [endPoint setBrowseId:@"FEnotifications_inbox"];
+            YTICommand *command = [[%c(YTICommand) alloc] init];
+            [command setBrowseEndpoint:endPoint];
+
+            YTIPivotBarItemRenderer *itemBar = [[%c(YTIPivotBarItemRenderer) alloc] init];
+            [itemBar setPivotIdentifier:@"FEnotifications_inbox"];
+            YTIIcon *icon = [itemBar icon];
+            [icon setIconType:NOTIFICATIONS];
+            [itemBar setNavigationEndpoint:command];
+
+            YTIFormattedString *formatString = [%c(YTIFormattedString) formattedStringWithString:@"Notifications"];
+            [itemBar setTitle:formatString];
+
+            YTIPivotBarSupportedRenderers *barSupport = [[%c(YTIPivotBarSupportedRenderers) alloc] init];
+            [barSupport setPivotBarItemRenderer:itemBar];
+
+            [renderer.itemsArray addObject:barSupport];
+        }
+    } @catch (NSException *exception) {
+        NSLog(@"Error setting renderer: %@", exception.reason);
+    }
+    %orig(renderer);
+}
+%end
+%hook YTBrowseViewController
+- (void)viewDidLoad {
+    %orig;
+    @try {
+        YTICommand *navEndpoint = [self valueForKey:@"_navEndpoint"];
+        if ([navEndpoint.browseEndpoint.browseId isEqualToString:@"FEnotifications_inbox"]) {
+            UIViewController *notificationsViewController = [[UIViewController alloc] init];
+            [self addChildViewController:notificationsViewController];
+            // FIXME: View issues
+            [notificationsViewController.view setFrame:CGRectMake(0.0f, 0.0f, self.view.frame.size.width, self.view.frame.size.height)];
+            [self.view addSubview:notificationsViewController.view];
+            [self.view endEditing:YES];
+            [notificationsViewController didMoveToParentViewController:self];
+        }
+    } @catch (NSException *exception) {
+        NSLog(@"Cannot show notifications view controller: %@", exception.reason);
+    }
+}
+%end
+
 // LEGACY VERSION ⚠️
 // Hide the (Connect / Thanks / Save / Report) Buttons under the Video Player - 17.33.2 and up - @arichornlover (inspired by @PoomSmart's version)
 %hook _ASDisplayView

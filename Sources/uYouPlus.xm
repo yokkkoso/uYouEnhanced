@@ -18,29 +18,28 @@ NSBundle *tweakBundle = uYouPlusBundle();
 //
 
 // Notifications Tab - @arichornlover & @dayanch96
+%group gShowNotificationsTab
 %hook YTPivotBarView
 - (void)setRenderer:(YTIPivotBarRenderer *)renderer {
     @try {
-        if ([[NSUserDefaults standardUserDefaults] boolForKey:@"kShowNotificationsTab"]) {
-            YTIBrowseEndpoint *endPoint = [[%c(YTIBrowseEndpoint) alloc] init];
-            [endPoint setBrowseId:@"FEnotifications_inbox"];
-            YTICommand *command = [[%c(YTICommand) alloc] init];
-            [command setBrowseEndpoint:endPoint];
+        YTIBrowseEndpoint *endPoint = [[%c(YTIBrowseEndpoint) alloc] init];
+        [endPoint setBrowseId:@"FEnotifications_inbox"];
+        YTICommand *command = [[%c(YTICommand) alloc] init];
+        [command setBrowseEndpoint:endPoint];
 
-            YTIPivotBarItemRenderer *itemBar = [[%c(YTIPivotBarItemRenderer) alloc] init];
-            [itemBar setPivotIdentifier:@"FEnotifications_inbox"];
-            YTIIcon *icon = [itemBar icon];
-            [icon setIconType:NOTIFICATIONS];
-            [itemBar setNavigationEndpoint:command];
+        YTIPivotBarItemRenderer *itemBar = [[%c(YTIPivotBarItemRenderer) alloc] init];
+        [itemBar setPivotIdentifier:@"FEnotifications_inbox"];
+        YTIIcon *icon = [itemBar icon];
+        [icon setIconType:YTIconTypeNOTIFICATIONS];
+        [itemBar setNavigationEndpoint:command];
 
-            YTIFormattedString *formatString = [%c(YTIFormattedString) formattedStringWithString:@"Notifications"];
-            [itemBar setTitle:formatString];
+        YTIFormattedString *formatString = [%c(YTIFormattedString) formattedStringWithString:@"Notifications"];
+        [itemBar setTitle:formatString];
 
-            YTIPivotBarSupportedRenderers *barSupport = [[%c(YTIPivotBarSupportedRenderers) alloc] init];
-            [barSupport setPivotBarItemRenderer:itemBar];
+        YTIPivotBarSupportedRenderers *barSupport = [[%c(YTIPivotBarSupportedRenderers) alloc] init];
+        [barSupport setPivotBarItemRenderer:itemBar];
 
-            [renderer.itemsArray addObject:barSupport];
-        }
+        [renderer.itemsArray addObject:barSupport];
     } @catch (NSException *exception) {
         NSLog(@"Error setting renderer: %@", exception.reason);
     }
@@ -65,6 +64,7 @@ NSBundle *tweakBundle = uYouPlusBundle();
         NSLog(@"Cannot show notifications view controller: %@", exception.reason);
     }
 }
+%end
 %end
 
 // LEGACY VERSION ⚠️
@@ -1877,6 +1877,9 @@ static int contrastMode() {
     }
     if (IS_ENABLED(kHideChipBar)) {
         %init(gHideChipBar);
+    }
+    if (IS_ENABLED(kShowNotificationsTab)) {
+        %init(gShowNotificationsTab);
     }
     if (IS_ENABLED(kPortraitFullscreen)) {
         %init(gPortraitFullscreen);

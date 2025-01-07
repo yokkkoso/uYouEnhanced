@@ -30,7 +30,7 @@ NSBundle *tweakBundle = uYouPlusBundle();
         YTIPivotBarItemRenderer *itemBar = [[%c(YTIPivotBarItemRenderer) alloc] init];
         [itemBar setPivotIdentifier:@"FEnotifications_inbox"];
         YTIIcon *icon = [itemBar icon];
-        [icon setIconType:NOTIFICATIONS];
+        [icon setIconType:YT_NOTIFICATIONS];
         [itemBar setNavigationEndpoint:command];
 
         YTIFormattedString *formatString = [%c(YTIFormattedString) formattedStringWithString:@"Notifications"];

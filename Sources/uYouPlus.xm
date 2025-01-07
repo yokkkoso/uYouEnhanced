@@ -755,7 +755,7 @@ static NSMutableArray <YTIItemSectionRenderer *> *filteredArray(NSArray <YTIItem
 %end
 
 // Disable animated YouTube Logo - @bhackel
-%hook YTHeaderLogoController
+%hook YTHeaderLogoControllerImpl // originally was "YTHeaderLogoController"
 - (void)configureYoodleNitrateController {
     if (IS_ENABLED(kDisableAnimatedYouTubeLogo)) {
         return;

@@ -19,6 +19,14 @@ NSBundle *tweakBundle = uYouPlusBundle();
 
 // Notifications Tab - @arichornlover & @dayanch96
 %group gShowNotificationsTab
+%hook YTAppPivotBarItemStyle
+- (UIImage *)pivotBarItemIconImageWithIconType:(int)type color:(UIColor *)color useNewIcons:(BOOL)isNew selected:(BOOL)isSelected {
+    NSString *imageName = isSelected ? @"notifications_selected" : @"notifications_unselected";
+    NSString *imagePath = [tweakBundle pathForResource:imageName ofType:@"png" inDirectory:@"UI"];
+    UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+    return type == 1 ? image : %orig;
+}
+%end
 %hook YTPivotBarView
 - (void)setRenderer:(YTIPivotBarRenderer *)renderer {
     @try {

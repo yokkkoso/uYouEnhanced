@@ -17,35 +17,75 @@ NSBundle *uYouPlusBundle() {
 NSBundle *tweakBundle = uYouPlusBundle();
 //
 
+// Notifications Tab appearance
+UIImage *resizeImage(UIImage *image, CGSize newSize) {
+    UIGraphicsBeginImageContextWithOptions(newSize, NO, 0.0);
+    [image drawInRect:CGRectMake(0, 0, newSize.width, newSize.height)];
+    UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return resizedImage;
+}
+
+static int getNotificationIconStyle() {
+    return [[NSUserDefaults standardUserDefaults] integerForKey:@"notificationIconStyle"];
+}
+
 // Notifications Tab - @arichornlover & @dayanch96
 %group gShowNotificationsTab
 %hook YTAppPivotBarItemStyle
 - (UIImage *)pivotBarItemIconImageWithIconType:(int)type color:(UIColor *)color useNewIcons:(BOOL)isNew selected:(BOOL)isSelected {
-    NSString *imageName = isSelected ? @"notifications_selected" : @"notifications_unselected";
+    NSString *imageName;
+    UIColor *iconColor;
+    switch (getNotificationIconStyle()) {
+        case 1:  // Thin outline style (2020+)
+            imageName = isSelected ? @"notifications_selected" : @"notifications_24pt";
+            iconColor = [%c(YTColor) white1];
+            break;
+        case 2:  // Filled style (2018+)
+            imageName = @"notifications_selected";
+            iconColor = isSelected ? [%c(YTColor) white1] : [UIColor grayColor];
+            break;
+        case 3:  // Inbox style (2014+)
+            imageName = @"inbox_selected";
+            iconColor = isSelected ? [%c(YTColor) white1] : [UIColor grayColor];
+            break;
+        default:  // Default style
+            imageName = isSelected ? @"notifications_selected" : @"notifications_unselected";
+            iconColor = [%c(YTColor) white1];
+            break;
+    }
     NSString *imagePath = [tweakBundle pathForResource:imageName ofType:@"png" inDirectory:@"UI"];
     UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
-    return type == 1 ? image : %orig;
+    CGSize newSize = CGSizeMake(24, 24);
+    image = resizeImage(image, newSize);
+    image = [%c(QTMIcon) tintImage:image color:iconColor];
+    return type == YT_NOTIFICATIONS ? image : %orig;
 }
 %end
 %hook YTPivotBarView
 - (void)setRenderer:(YTIPivotBarRenderer *)renderer {
     @try {
-        YTIBrowseEndpoint *endPoint = [[%c(YTIBrowseEndpoint) alloc] init];
-        [endPoint setBrowseId:@"FEnotifications_inbox"];
-        YTICommand *command = [[%c(YTICommand) alloc] init];
-        [command setBrowseEndpoint:endPoint];
+	YTIBrowseEndpoint *endPoint = [[%c(YTIBrowseEndpoint) alloc] init];
+	[endPoint setBrowseId:@"FEnotifications_inbox"];
+	YTICommand *command = [[%c(YTICommand) alloc] init];
+	[command setBrowseEndpoint:endPoint];
 
-        YTIPivotBarItemRenderer *itemBar = [[%c(YTIPivotBarItemRenderer) alloc] init];
-        [itemBar setPivotIdentifier:@"FEnotifications_inbox"];
-        YTIIcon *icon = [itemBar icon];
-        [icon setIconType:YT_NOTIFICATIONS];
-        [itemBar setNavigationEndpoint:command];
+	YTIPivotBarItemRenderer *itemBar = [[%c(YTIPivotBarItemRenderer) alloc] init];
+	[itemBar setPivotIdentifier:@"FEnotifications_inbox"];
+	YTIIcon *icon = [itemBar icon];
+	[icon setIconType:YT_NOTIFICATIONS];
+	[itemBar setNavigationEndpoint:command];
 
-        YTIFormattedString *formatString = [%c(YTIFormattedString) formattedStringWithString:@"Notifications"];
-        [itemBar setTitle:formatString];
+	YTIFormattedString *formatString;
+	if (getNotificationIconStyle() == 3) {
+		formatString = [%c(YTIFormattedString) formattedStringWithString:@"Inbox"];
+	} else {
+		formatString = [%c(YTIFormattedString) formattedStringWithString:@"Notifications"];
+	}
+	[itemBar setTitle:formatString];
 
-        YTIPivotBarSupportedRenderers *barSupport = [[%c(YTIPivotBarSupportedRenderers) alloc] init];
-        [barSupport setPivotBarItemRenderer:itemBar];
+	YTIPivotBarSupportedRenderers *barSupport = [[%c(YTIPivotBarSupportedRenderers) alloc] init];
+	[barSupport setPivotBarItemRenderer:itemBar];
 
         [renderer.itemsArray addObject:barSupport];
     } @catch (NSException *exception) {

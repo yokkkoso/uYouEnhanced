@@ -94,7 +94,7 @@
 <img src='https://user-images.githubusercontent.com/78001398/271812231-5b7d5d9f-6d19-4174-8478-8f07379ee1ca.png' width='110px'>
 </a>
 <br>
-<a href='https://twitter.com/dev_galactic'><img src="https://img.shields.io/badge/Twitter-galactic-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="galactic"></a>
+<a href='https://twitter.com/dev_galactic'><img src="https://img.shields.io/badge/Twitter-dev_galactic-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="dev_galactic"></a>
 </td>
 </tr>
 
@@ -106,7 +106,7 @@
 <img src='https://user-images.githubusercontent.com/78001398/271812914-bf26d603-2d94-49f4-9702-f5e66af3f44a.png' width='110px'>
 </a>
 <br>
-<a href='https://twitter.com/ijulioverne'><img src="https://img.shields.io/badge/Twitter-julioverne-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="julioverne"></a>
+<a href='https://twitter.com/ijulioverne'><img src="https://img.shields.io/badge/Twitter-ijulioverne-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="ijulioverne"></a>
 </td>
 
 <hbang>
@@ -115,7 +115,7 @@
 <img src='https://user-images.githubusercontent.com/78001398/271813035-2e168ee5-fc47-43a6-9307-0fc20c7fca60.png' width='110px'>
 </a>
 <br>
-<a href='https://twitter.com/hashbang'><img src="https://img.shields.io/badge/Twitter-HASHBANG-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="HASHBANG"></a>
+<a href='https://twitter.com/hashbang'><img src="https://img.shields.io/badge/Twitter-hashbang-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="hashbang"></a>
 </td>
 
 <Lyvendia>
@@ -133,7 +133,7 @@
 <img src='https://user-images.githubusercontent.com/78001398/271812075-923038a7-5ffa-4ea4-9de4-fdf4e5d556c2.png' width='110px'>
 </a>
 <br>
-<a href='https://twitter.com/therealFoxster'><img src="https://img.shields.io/badge/Twitter-Foxster-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Foxster"></a>
+<a href='https://twitter.com/therealFoxster'><img src="https://img.shields.io/badge/Twitter-therealFoxster-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="therealFoxster"></a>
 </td>
 
 <ichitaso>
@@ -151,7 +151,7 @@
 <img src='https://user-images.githubusercontent.com/78001398/271813114-dcb005f7-b83b-40e6-a9cb-9b661dd6b33b.png' width='110px'>
 </a>
 <br>
-<a href='https://twitter.com/Peaceful_0'><img src="https://img.shields.io/badge/Twitter-Ahmed Bafkir-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Ahmed Bafkir"></a>
+<a href='https://twitter.com/Peaceful_0'><img src="https://img.shields.io/badge/Twitter-AhmedBafkir-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="Peaceful_0"></a>
 </td>
 </tr>
 
@@ -163,7 +163,7 @@
 <img src='https://user-images.githubusercontent.com/78001398/271813228-d28471b4-cb67-442c-bd63-276f1641a14e.png' width='110px'>
 </a>
 <br>
-<a href='https://twitter.com/cokepokes'><img src="https://img.shields.io/badge/Twitter-CokePokes-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="CokePokes"></a>
+<a href='https://twitter.com/cokepokes'><img src="https://img.shields.io/badge/Twitter-cokepokes-1DA1F2?style=for-the-badge&logo=twitter&logoColor=white" alt="cokepokes"></a>
 </td>
 
 <ISnackable>
@@ -172,7 +172,7 @@
 <img src='https://user-images.githubusercontent.com/78001398/271813311-2027a8de-a08d-4f1b-97a4-167f4bcef497.png' width='110px'>
 </a>
 <br>
-<a href='https://isnackable.me/'><img src="https://img.shields.io/badge/Website-Tommy Teo-000000?style=for-the-badge&logo=internet-explorer&logoColor=white" alt="Tommy Teo"></a>
+<a href='https://isnackable.me/'><img src="https://img.shields.io/badge/Website-isnackable-000000?style=for-the-badge&logo=internet-explorer&logoColor=white" alt="isnackable"></a>
 </td>
 
 <dayanch96>
@@ -293,11 +293,11 @@
 
   - My alternative AltStore repo (uYouEnhanced - **iOS 14+** - mainly for Trollstore users): https://therealfoxster.github.io/altsource-viewer/view/?source=https://raw.githubusercontent.com/arichornlover/arichornlover.github.io/main/apps-legacy.json - not sure if i can update this ipa. this IPA will be locked in YouTube Version **19.20.2**
 
-  - [Open in AltStore (v19.45.4-3.0.4)](https://tinyurl.com/f2je7t46) - It will take a while to install because AltStore needs to download the IPA first.
+  - [Open in AltStore (v19.49.7-3.0.4)](https://tinyurl.com/muanwkrs) - It will take a while to install because AltStore needs to download the IPA first.
   - NEWS - Nov 27 2024: Please be aware that some of the **uYou** features aren't working in newer versions of YouTube.
 
 <details>
-  <summary>Version information (last updated: Jan 12, 2025)</summary>
+  <summary>Version information (last updated: Jan 14, 2025)</summary>
 
 | **Tweaks/App** | **Developer** | **Version** | **Open source** |
 | - | - | :-: | :-:  |

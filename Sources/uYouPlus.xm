@@ -341,7 +341,7 @@ YTMainAppControlsOverlayView *controlsOverlayView;
 %end
 
 %hook YTDataUtils
-+ (id)spamSignalsDictionary { return @{}; }
++ (id)spamSignalsDictionary { return @{ @"ms": @"" }; }
 + (id)spamSignalsDictionaryWithoutIDFA { return @{}; }
 %end
 
@@ -397,7 +397,7 @@ YTMainAppControlsOverlayView *controlsOverlayView;
 + (id)spamSignalsDictionaryWithoutIDFA { return @{}; }
 %end
 %hook YTDataUtils
-+ (id)spamSignalsDictionary { return @{}; }
++ (id)spamSignalsDictionary { return @{ @"ms": @"" }; }
 + (id)spamSignalsDictionaryWithoutIDFA { return @{}; }
 %end
 %hook YTAdsInnerTubeContextDecorator

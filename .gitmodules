@@ -19,10 +19,6 @@
     path = Tweaks/iSponsorBlock
     url = https://github.com/Galactic-Dev/iSponsorBlock.git
     branch = master
-[submodule "Tweaks/MrBeastify"]
-    path = Tweaks/MrBeastify
-    url = https://github.com/arichornloverALT/MrBeastify.git
-    branch = main
 [submodule "Tweaks/NoYTPremium"]
     path = Tweaks/NoYTPremium
     url = https://github.com/PoomSmart/NoYTPremium.git
@@ -79,9 +75,6 @@
 [submodule "Tweaks/YTIcons"]
     path = Tweaks/YTIcons
     url = https://github.com/PoomSmart/YTIcons
-[submodule "Tweaks/YTSpeed"]
-    path = Tweaks/YTSpeed
-    url = https://github.com/arichornloverALT/YTSpeed.git
 [submodule "Tweaks/YTUHD"]
     path = Tweaks/YTUHD
     url = https://github.com/PoomSmart/YTUHD.git

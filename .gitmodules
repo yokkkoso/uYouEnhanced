@@ -89,3 +89,6 @@
 [submodule "Tweaks/PSHeader"]
 	path = Tweaks/PSHeader
 	url = https://github.com/PoomSmart/PSHeader.git
+[submodule "Tweaks/YouSlider"]
+	path = Tweaks/YouSlider
+	url = https://github.com/PoomSmart/YouSlider

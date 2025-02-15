@@ -360,18 +360,17 @@ NSString *cacheDescription = [NSString stringWithFormat:@"%@", GetCacheSize()];
     ];
     [sectionItems addObject:clearCache];
 
-    YTSettingsSectionItem *clearNotifications = [%c(YTSettingsSectionItem)
-        itemWithTitle:LOC(@"CLEAR_NOTIFICATIONS")
-        titleDescription:LOC(@"CLEAR_NOTIFICATIONS_DESC")
+    YTSettingsSectionItem *refreshConnection = [%c(YTSettingsSectionItem)
+        itemWithTitle:LOC(@"REFRESH_CONNECTION")
+        titleDescription:LOC(@"REFRESH_CONNECTION_DESC")
         accessibilityIdentifier:nil
         detailTextBlock:nil
         selectBlock:^BOOL (YTSettingsCell *cell, NSUInteger arg1) {
-            [[UIApplication sharedApplication] cancelAllLocalNotifications];
-            [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+            ResetNetworkSettings();
             return YES;
         }
     ];
-    [sectionItems addObject:clearNotifications];
+    [sectionItems addObject:refreshConnection];
 
     # pragma mark - App theme
     SECTION_HEADER(LOC(@"THEME_OPTIONS"));

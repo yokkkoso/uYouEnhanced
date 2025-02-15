@@ -181,6 +181,14 @@ static NSString *const kFlex = @"flex_enabled";
 // unused (uYouEnhanced)
 static NSString *const kGoogleSigninFix = @"googleSigninFix_enabled";
 
+// Definition for network-related settings
+void ResetNetworkSettings() {
+    NSURLSession *session = [NSURLSession sharedSession];
+    [session invalidateAndCancel];
+    [session resetWithCompletionHandler:^{
+    }];
+}
+
 // Always show remaining time in video player - @bhackel
 // Header has been moved to https://github.com/PoomSmart/YouTubeHeader/blob/main/YTPlayerBarController.h
 // Header has been moved to https://github.com/PoomSmart/YouTubeHeader/blob/main/YTInlinePlayerBarContainerView.h

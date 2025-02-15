@@ -412,7 +412,7 @@ YTMainAppControlsOverlayView *controlsOverlayView;
 %hook MDXSession
 - (void)adPlaying:(id)ad {}
 %end
-%hook YTReelInfinitePlaybackDataSource
+%hook YTReelDataSource
 - (YTReelModel *)makeContentModelForEntry:(id)entry {
     YTReelModel *model = %orig;
     if ([model respondsToSelector:@selector(videoType)] && model.videoType == 3)
@@ -420,28 +420,41 @@ YTMainAppControlsOverlayView *controlsOverlayView;
     return model;
 }
 %end
+%hook YTReelInfinitePlaybackDataSource
+- (YTReelModel *)makeContentModelForEntry:(id)entry {
+    YTReelModel *model = %orig;
+    if ([model respondsToSelector:@selector(videoType)] && model.videoType == 3)
+        return nil;
+    return model;
+}
+- (void)setReels:(NSMutableOrderedSet <YTReelModel *> *)reels {
+    [reels removeObjectsAtIndexes:[reels indexesOfObjectsPassingTest:^BOOL(YTReelModel *obj, NSUInteger idx, BOOL *stop) {
+        return [obj respondsToSelector:@selector(videoType)] ? obj.videoType == 3 : NO;
+    }]];
+    %orig;
+}
+%end
 NSString *getAdString(NSString *description) {
-    for (NSString *str in @[
-            @"brand_promo",
-            @"carousel_footered_layout",
-            @"carousel_headered_layout",
-            @"eml.expandable_metadata",
-            @"feed_ad_metadata",
-            @"full_width_portrait_image_layout",
-            @"full_width_square_image_layout",
-            @"landscape_image_wide_button_layout",
-            @"post_shelf",
-            @"product_carousel",
-            @"product_engagement_panel",
-            @"product_item",
-            @"shopping_carousel",
-            @"shopping_item_card_list",
-            @"statement_banner",
-            @"square_image_layout",
-            @"text_image_button_layout",
-            @"text_search_ad",
-            @"video_display_full_layout",
-            @"video_display_full_buttoned_layout"
+    for (NSString *str in @[        @"brand_promo",
+        @"carousel_footered_layout",
+        @"carousel_headered_layout",
+        @"eml.expandable_metadata",
+        @"feed_ad_metadata",
+        @"full_width_portrait_image_layout",
+        @"full_width_square_image_layout",
+        @"landscape_image_wide_button_layout",
+        @"post_shelf",
+        @"product_carousel",
+        @"product_engagement_panel",
+        @"product_item",
+        @"shopping_carousel",
+        @"shopping_item_card_list",
+        @"statement_banner",
+        @"square_image_layout",
+        @"text_image_button_layout",
+        @"text_search_ad",
+        @"video_display_full_layout",
+        @"video_display_full_buttoned_layout"
     ]) 
         if ([description containsString:str]) return str;
 
@@ -463,6 +476,16 @@ static BOOL isAdRenderer(YTIElementRenderer *elementRenderer, int kind) {
 static NSMutableArray <YTIItemSectionRenderer *> *filteredArray(NSArray <YTIItemSectionRenderer *> *array) {
     NSMutableArray <YTIItemSectionRenderer *> *newArray = [array mutableCopy];
     NSIndexSet *removeIndexes = [newArray indexesOfObjectsPassingTest:^BOOL(YTIItemSectionRenderer *sectionRenderer, NSUInteger idx, BOOL *stop) {
+        if ([sectionRenderer isKindOfClass:%c(YTIShelfRenderer)]) {
+            YTIShelfSupportedRenderers *content = ((YTIShelfRenderer *)sectionRenderer).content;
+            YTIHorizontalListRenderer *horizontalListRenderer = content.horizontalListRenderer;
+            NSMutableArray <YTIHorizontalListSupportedRenderers *> *itemsArray = horizontalListRenderer.itemsArray;
+            NSIndexSet *removeItemsArrayIndexes = [itemsArray indexesOfObjectsPassingTest:^BOOL(YTIHorizontalListSupportedRenderers *horizontalListSupportedRenderers, NSUInteger idx2, BOOL *stop2) {
+                YTIElementRenderer *elementRenderer = horizontalListSupportedRenderers.elementRenderer;
+                return isAdRenderer(elementRenderer, 4);
+            }];
+            [itemsArray removeObjectsAtIndexes:removeItemsArrayIndexes];
+        }
         if (![sectionRenderer isKindOfClass:%c(YTIItemSectionRenderer)])
             return NO;
         NSMutableArray <YTIItemSectionSupportedRenderers *> *contentsArray = sectionRenderer.contentsArray;

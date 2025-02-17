@@ -21,23 +21,26 @@
     [self setupTableView];
 }
 
+- (void)viewDidLayoutSubviews {
+    [super viewDidLayoutSubviews];
+    self.tableView.frame = self.view.bounds;
+}
+
 - (void)setupBackButton {
     self.backButton = [UIButton buttonWithType:UIButtonTypeCustom];
     NSBundle *backIcon = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"uYouPlus" ofType:@"bundle"]];
     UIImage *backImage = [UIImage imageNamed:@"Back.png" inBundle:backIcon compatibleWithTraitCollection:nil];
     backImage = [self resizeImage:backImage newSize:CGSizeMake(24, 24)];
     backImage = [backImage imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    [self.backButton setTintColor:[UIColor whiteColor]];
+    [self.backButton setTintColor:[UIColor systemBlueColor]];
     [self.backButton setImage:backImage forState:UIControlStateNormal];
     [self.backButton addTarget:self action:@selector(back) forControlEvents:UIControlEventTouchUpInside];
-    [self.backButton setFrame:CGRectMake(0, 0, 24, 24)];
     UIBarButtonItem *customBackButton = [[UIBarButtonItem alloc] initWithCustomView:self.backButton];
     self.navigationItem.leftBarButtonItem = customBackButton;
 }
 
 - (void)setupTableView {
-    UITableViewStyle style = UITableViewStyleInsetGrouped;
-    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:style];
+    self.tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStyleInsetGrouped];
     self.tableView.translatesAutoresizingMaskIntoConstraints = NO;
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
@@ -73,25 +76,30 @@
 
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
-        [self configureCell:cell atIndexPath:indexPath];
     }
+    [self configureCell:cell atIndexPath:indexPath];
     return cell;
 }
 
 - (void)configureCell:(UITableViewCell *)cell atIndexPath:(NSIndexPath *)indexPath {
     cell.textLabel.adjustsFontSizeToFitWidth = YES;
+    cell.textLabel.font = [UIFont systemFontOfSize:18 weight:UIFontWeightRegular];
     cell.detailTextLabel.adjustsFontSizeToFitWidth = YES;
+    cell.detailTextLabel.font = [UIFont systemFontOfSize:14 weight:UIFontWeightRegular];
+
+    BOOL isPortrait = UIDevice.currentDevice.orientation == UIDeviceOrientationPortrait;
+    BOOL isPhone = UIDevice.currentDevice.userInterfaceIdiom == UIUserInterfaceIdiomPhone;
 
     if (indexPath.section == 0) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
         if (indexPath.row == 0) {
             cell.textLabel.text = @"Custom Theme Color";
-            cell.detailTextLabel.text = @"You must go to uYouEnhanced settings and then go to 'Dark Mode' and set it to 'Custom Dark Mode' for it to work.";
+            cell.detailTextLabel.text = isPortrait && isPhone ? @"" : @"You must go to uYouEnhanced settings and then go to 'Dark Mode' and set it to 'Custom Dark Mode' for it to work.";
             cell.imageView.image = [UIImage systemImageNamed:@"slider.horizontal.3"];
         }
         if (indexPath.row == 1) {
             cell.textLabel.text = @"Custom Tint Color";
-            cell.detailTextLabel.text = @"You must go to uYouEnhanced settings and have LowContrastMode enabled and then go to 'LowContrastMode Selector' and set it to 'Custom' for it to work.";
+            cell.detailTextLabel.text = isPortrait && isPhone ? @"" : @"You must go to uYouEnhanced settings and have LowContrastMode enabled and then go to 'LowContrastMode Selector' and set it to 'Custom' for it to work.";
             cell.imageView.image = [UIImage systemImageNamed:@"drop.fill"];
         }
     } else if (indexPath.section == 1) {

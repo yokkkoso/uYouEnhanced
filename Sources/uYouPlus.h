@@ -1,3 +1,4 @@
+#import <ActivityKit/ActivityKit.h> 
 #import <UIKit/UIKit.h>
 #import <HBLog.h>
 #import <Foundation/Foundation.h>
@@ -18,6 +19,7 @@
 #import <YouTubeHeader/GPBMessage.h>
 #import <YouTubeHeader/MLPlayerStickySettings.h>
 #import <YouTubeHeader/YTAppDelegate.h>
+#import <YouTubeHeader/YTAssetLoader.h>
 #import <YouTubeHeader/YTCollectionViewCell.h>
 #import <YouTubeHeader/YTIBrowseRequest.h>
 #import <YouTubeHeader/YTIButtonRenderer.h>
@@ -32,6 +34,8 @@
 #import <YouTubeHeader/YTIMenuConditionalServiceItemRenderer.h>
 #import <YouTubeHeader/YTInnerTubeCollectionViewController.h>
 #import <YouTubeHeader/YTInlinePlayerBarContainerView.h>
+#import <YouTubeHeader/YTIShelfRenderer.h>
+#import <YouTubeHeader/YTBrowseViewController.h>
 #import <YouTubeHeader/YTIPivotBarItemRenderer.h>
 #import <YouTubeHeader/YTIPivotBarRenderer.h>
 #import <YouTubeHeader/YTIPivotBarSupportedRenderers.h>
@@ -46,6 +50,7 @@
 #import <YouTubeHeader/YTPlayerOverlay.h>
 #import <YouTubeHeader/YTPlayerOverlayProvider.h>
 #import <YouTubeHeader/YTPlayerOverlayManager.h>
+#import <YouTubeHeader/QTMIcon.h>
 #import <YouTubeHeader/YTReelModel.h>
 #import <YouTubeHeader/YTReelWatchPlaybackOverlayView.h>
 #import <YouTubeHeader/YTResponder.h>
@@ -162,6 +167,7 @@ static NSString *const kDisableHints = @"disableHints_enabled";
 static NSString *const kStickNavigationBar = @"stickNavigationBar_enabled";
 static NSString *const kHideiSponsorBlockButton = @"hideiSponsorBlockButton_enabled";
 static NSString *const kHideChipBar = @"hideChipBar_enabled";
+static NSString *const kShowNotificationsTab = @"showNotificationsTab_enabled";
 static NSString *const kHidePlayNextInQueue = @"hidePlayNextInQueue_enabled";
 static NSString *const kHideCommunityPosts = @"hideCommunityPosts_enabled";
 static NSString *const kHideChannelHeaderLinks = @"hideChannelHeaderLinks_enabled";
@@ -316,10 +322,7 @@ static NSString *const kGoogleSigninFix = @"googleSigninFix_enabled";
 @end
 
 // MLPlayerStickySettings Header has been moved to https://github.com/arichornloverALT/YouTubeHeader/blob/main/MLPlayerStickySettings.h
-
-@interface MLPlayerEventCenter : NSObject
-- (void)broadcastRateChange:(float)rate;
-@end
+// MLPlayerEventCenter Header has been moved to https://github.com/PoomSmart/YouTubeHeader/blob/main/MLPlayerEventCenter.h
 
 @interface HAMPlayerInternal : NSObject
 - (void)setRate:(float)rate;
